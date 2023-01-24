@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import { Col, Row, Container } from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../random-char';
-import ItemList from '../item-list';
-import CharDetails from '../char-details';
+import ErrorMessage from '../error-message';
+import CharacterPage from '../character-page';
 
 export default class App extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            showChar: true
+            showChar: true,
+            error: false
         }
 
+    }
+
+    componentDidCatch() {
+        console.log('error')
+        this.setState({
+            error: true
+        })
     }
 
     onShowChar = () => {
@@ -23,9 +31,14 @@ export default class App extends Component {
         })
     }
 
+
     render() {
         const { showChar } = this.state
         const charView = showChar ? <ViewRandomChar /> : null
+
+        if (this.state.error) {
+            return <ErrorMessage />
+        }
         return (
             <>
                 <Container>
@@ -37,19 +50,12 @@ export default class App extends Component {
                             {charView}
                             <button
                                 className='btn btn-primary'
-                                style={{marginBottom: '30px'}}
+                                style={{ marginBottom: '30px' }}
                                 onClick={this.onShowChar}
                             >Change character</button>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
+                    <CharacterPage />
                 </Container>
             </>
         );
