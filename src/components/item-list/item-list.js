@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import gotService from '../../services/got-services'; import Spinner from '../spinner';
 import './item-list.css';
 export default class ItemList extends Component {
+    constructor(props) {
+        super(props)
+
+
+
+        this.state = {
+            charList: null
+        }
+
+    }
 
     gotService = new gotService()
-    state = {
-        charList: null
-    }
 
     componentDidMount() {
         this.gotService.getAllCharacters()
@@ -18,18 +25,18 @@ export default class ItemList extends Component {
     }
     renderItems(arr) {
 
-        const generateUniqueKey = (pre) => {
-            return `${pre}_${new Date().getTime()}`
-        }
+        // const generateUniqueKey = (pre) => {
+        //     return `${pre}_${new Date().getTime()}`
+        // }
 
         return arr.map((item, id) => {
 
             return (
                 <li
-                    key={generateUniqueKey(id)}
+                    key={item.url}
                     className="list-group-item"
                     onClick={() => this.props.onCharSelected(41 + id)}>
-                    {item.name}
+                    {item.name }
                 </li>
             )
         })

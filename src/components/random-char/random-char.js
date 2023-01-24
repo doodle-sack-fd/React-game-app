@@ -65,7 +65,7 @@ export default class RandomChar extends Component {
 }
 
 const View = ({ char }) => {
-    const { name, gender, born, died, culture } = char
+    const { url, name, gender, born, died, culture } = char
     return (
         <>
             <h4>Random Character: {name}</h4>

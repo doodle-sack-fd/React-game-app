@@ -1,3 +1,5 @@
+import { CardHeader } from "reactstrap";
+
 export default class gotService {
     constructor() {
         this._apiBase = 'https://www.anapioficeandfire.com/api';
@@ -37,6 +39,7 @@ export default class gotService {
 
     _trasnformCharacter(char) {
         return {
+            url: char.url,
             name: char.name ? char.name : 'no data :>',
             gender: char.gender ? char.gender : 'no data :>',
             born: char.born ? char.born : 'no data :>',
