@@ -1,2 +1,3 @@
-import CharDetails from './char-details';
+import CharDetails, {Field} from './char-details';
 export default CharDetails;
+export {Field}

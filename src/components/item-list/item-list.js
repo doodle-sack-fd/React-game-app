@@ -1,42 +1,34 @@
 import React, { Component } from 'react';
-import gotService from '../../services/got-services'; import Spinner from '../spinner';
+import Spinner from '../spinner';
 import './item-list.css';
 export default class ItemList extends Component {
-    constructor(props) {
-        super(props)
-
-
-
-        this.state = {
-            charList: null
+    
+        state = {
+            itemList: null
         }
-
-    }
-
-    gotService = new gotService()
-
+        
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then((charList) => {
+        const { getData } = this.props;
+
+        getData()
+            .then((itemList) => {
                 this.setState({
-                    charList: charList
+                    itemList: itemList
                 })
             })
     }
     renderItems(arr) {
+        return arr.map((item,id) => {
+            
+            const label = this.props.renderItem(item)
 
-        // const generateUniqueKey = (pre) => {
-        //     return `${pre}_${new Date().getTime()}`
-        // }
-
-        return arr.map((item, id) => {
 
             return (
                 <li
-                    key={item.url}
+                    key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(41 + id)}>
-                    {item.name }
+                    onClick={() => this.props.onItemSelected(41+id)}>
+                    {label}
                 </li>
             )
         })
@@ -44,14 +36,14 @@ export default class ItemList extends Component {
 
     render() {
 
-        const { charList } = this.state
+        const { itemList } = this.state
 
 
-        if (!charList) {
+        if (!itemList) {
             return <Spinner />
         }
 
-        const items = this.renderItems(charList)
+        const items = this.renderItems(itemList)
 
         return (
             <ul className="item-list list-group">

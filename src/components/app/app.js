@@ -4,17 +4,19 @@ import Header from '../header';
 import RandomChar from '../random-char';
 import ErrorMessage from '../error-message';
 import CharacterPage from '../character-page';
+import ItemList from '../item-list';
+import CharDetails from '../char-details';
+import gotService from '../../services/got-services';
+
 
 export default class App extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            showChar: true,
-            error: false
-        }
-
+    gotService = new gotService();
+    state = {
+        showChar: true,
+        error: false
     }
+
+
 
     componentDidCatch() {
         console.log('error')
@@ -56,6 +58,29 @@ export default class App extends Component {
                         </Col>
                     </Row>
                     <CharacterPage />
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onItemSelected={this.onItemSelected}
+                                getData={this.gotService.getAllBooks}
+                                renderItem={(item) => item.name} />
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md='6'>
+                            <ItemList
+                                onItemSelected={this.onItemSelected}
+                                getData={this.gotService.getAllHouses}
+                                renderItem={(item) => item.name}
+                            />
+                        </Col>
+                        <Col md='6'>
+                            <CharDetails charId={this.state.selectedChar} />
+                        </Col>
+                    </Row>
                 </Container>
             </>
         );
