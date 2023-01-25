@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ItemList from '../item-list';
-import CharDetails, {Field} from '../char-details';
-import gotService from '../../services/got-services';
-import ErrorMessage from '../error-message';
-import RowBlock from '../row-block';
+import ItemList from '../../item-list';
+import ItemDetails, { Field } from '../../item-details';
+import gotService from '../../../services/got-services';
+import ErrorMessage from '../../error-message';
+import RowBlock from '../../row-block';
 
 
 export default class CharacterPage extends Component {
@@ -42,12 +42,12 @@ export default class CharacterPage extends Component {
         )
 
         const charDetails = (
-            <CharDetails charId={this.state.selectedChar} >
-                <Field field='gender' label='Gender'/>
+            <ItemDetails charId={this.state.selectedChar} >
+                <Field field='gender' label='Gender' />
                 <Field field='born' label='Born' />
                 <Field field='died' label='Died' />
                 <Field field='culture' label='Culture' />
-            </CharDetails>
+            </ItemDetails>
         )
 
         return (

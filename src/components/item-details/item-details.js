@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import gotService from '../../services/got-services';
-import './char-details.css';
+import './item-details.css';
 
-const Field = ({ char, field, label }) => {
+const Field = ({ itemDetails, field, label }) => {
     return (
         <li className="list-group-item d-flex justify-content-between">
             <span className="term">{label}</span>
-            <span>{char[field]}</span>
+            <span>{itemDetails[field]}</span>
         </li>
         )
 }
@@ -15,12 +15,12 @@ export {
     Field
 }
 
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
 
     gotService = new gotService();
 
     state = {
-        char: null
+        itemDetails: null
     }
 
     componentDidMount() {
@@ -40,19 +40,19 @@ export default class CharDetails extends Component {
         }
 
         this.gotService.getCharacter(charId)
-            .then((char) => {
-                this.setState({ char: char })
+            .then((itemDetails) => {
+                this.setState({ itemDetails: itemDetails })
             })
     }
 
 
     render() {
 
-        if (!this.state.char) {
+        if (!this.state.itemDetails) {
             return <span className='select-error'>Please select a character</span>
         }
-        const {char} = this.state
-        const { name } = char
+        const { itemDetails } = this.state
+        const { name } = itemDetails
 
         return (
             <div className="char-details rounded">
@@ -60,7 +60,7 @@ export default class CharDetails extends Component {
                 <ul className="list-group list-group-flush">
                     {
                         React.Children.map(this.props.children, (child) => {
-                            return React.cloneElement(child, {char})
+                            return React.cloneElement(child, { itemDetails })
                         })
                     }
                 </ul>
