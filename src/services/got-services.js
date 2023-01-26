@@ -16,32 +16,32 @@ export default class gotService {
 
     getAllCharacters = async () => {
         const res = await this.getResource('/characters?page=5&pageSize=10');
-        return res.map(this._trasnformCharacter)
+        return res.map(this._transformCharacter)
     }
     getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
-        return this._trasnformCharacter(character)
+        return this._transformCharacter(character)
     }
 
     getAllBooks = async () => {
-        const res = await this.getResource('/books/')
-        return res.map(this._trasnformBook)
+        const res = await this.getResource('/books?page=1&pageSize=10')
+        return res.map(this._transformBook)
     }
     getBook = async (id) => {
         const book = await this.getResource(`/books/${id}`)
-        return this._trasnformBook(book)
+        return this._transformBook(book)
     }
 
     getAllHouses = async () => {
         const res = await this.getResource('/houses/')
-        return res.map(this._trasnformHouse)
+        return res.map(this._transformHouse)
     }
     getHouse = async (id) => {
         const house = await this.getResource(`/houses/${id}`)
-        return this._trasnformHouse(house)
+        return this._transformHouse(house)
     }
 
-    _trasnformCharacter(char) {
+    _transformCharacter(char) {
         return {
             url: char.url,
             name: char.name ? char.name : 'no data :>',
@@ -52,7 +52,7 @@ export default class gotService {
         }
     }
 
-    _trasnformBook(book) {
+    _transformBook(book) {
         return {
             name: book.name,
             numberOfPages: book.numberOfPages,
@@ -61,7 +61,7 @@ export default class gotService {
         }
     }
 
-    _trasnformHouse(house) {
+    _transformHouse(house) {
         return {
             name: house.name,
             region: house.region,

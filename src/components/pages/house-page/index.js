@@ -1,2 +1,2 @@
-import HousePage from "./book-page";
+import HousePage from "./house-page";
 export default HousePage;

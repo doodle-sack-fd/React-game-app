@@ -5,15 +5,16 @@ import RandomChar from '../random-char';
 import ErrorMessage from '../error-message';
 import CharacterPage from '../pages/character-page';
 import BookPage from '../pages/book-page';
-import ItemList from '../item-list';
-import ItemDetails from '../item-details';
 import HousePage from '../pages/house-page';
+import BooksItem from '../pages/books-item';
 import gotService from '../../services/got-services';
+import { BrowserRouter, Route, Routes} from "react-router-dom"
 
 
 
 export default class App extends Component {
     gotService = new gotService();
+    
     state = {
         showChar: true,
         error: false
@@ -45,49 +46,35 @@ export default class App extends Component {
             return <ErrorMessage />
         }
         return (
-            <>
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{ size: 5, offset: 0 }}>
-                            {charView}
-                            <button
-                                className='btn btn-primary'
-                                style={{ marginBottom: '30px' }}
-                                onClick={this.onShowChar}
-                            >Change character</button>
-                        </Col>
-                    </Row>
-                    <CharacterPage />
-                    <BookPage/>
-                    <HousePage/>
-                    {/* <Row>
-                        <Col md='6'>
-                            <ItemList
-                                onItemSelected={this.onItemSelected}
-                                getData={this.gotService.getAllBooks}
-                                renderItem={(item) => item.name} />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails charId={this.state.selectedChar} />
-                        </Col>
-                    </Row> */}
-                    {/* <Row>
-                        <Col md='6'>
-                            <ItemList
-                                onItemSelected={this.onItemSelected}
-                                getData={this.gotService.getAllHouses}
-                                renderItem={(item) => item.name}
-                            />
-                        </Col>
-                        <Col md='6'>
-                            <ItemDetails charId={this.state.selectedChar} />
-                        </Col>
-                    </Row> */}
-                </Container>
-            </>
+
+            <BrowserRouter>
+                <div className='app'>
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col lg={{ size: 5, offset: 0 }}>
+                                {charView}
+                                <button
+                                    className='btn btn-primary'
+                                    style={{ marginBottom: '30px' }}
+                                    onClick={this.onShowChar}
+                                >Change character</button>
+                            </Col>
+                        </Row>
+                        <Routes>
+                            <Route path='/characters' element={<CharacterPage />} />
+                            <Route path='/houses' element={<HousePage />} />
+                            <Route path='/books' exact element={<BookPage />}>
+                                <Route path=':id' element={<BooksItem />} />
+                            </Route>
+                            
+                        </Routes>
+                    </Container>
+                </div>
+            </BrowserRouter>
+
         );
     }
 };

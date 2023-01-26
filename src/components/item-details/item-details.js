@@ -24,22 +24,22 @@ export default class ItemDetails extends Component {
     }
 
     componentDidMount() {
-        this.updateChar()
+        this.updateItem()
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.charId !== prevProps.charId) {
-            this.updateChar()
+        if (this.props.itemId !== prevProps.itemId) {
+            this.updateItem()
         }
     }
 
-    updateChar() {
-        const { charId } = this.props
-        if (!charId) {
+    updateItem() {
+        const { itemId, getData } = this.props
+        if (!itemId) {
             return;
         }
 
-        this.gotService.getCharacter(charId)
+        getData(itemId)
             .then((itemDetails) => {
                 this.setState({ itemDetails: itemDetails })
             })
@@ -49,7 +49,7 @@ export default class ItemDetails extends Component {
     render() {
 
         if (!this.state.itemDetails) {
-            return <span className='select-error'>Please select a character</span>
+            return <span className='select-error'>Please select a item</span>
         }
         const { itemDetails } = this.state
         const { name } = itemDetails
