@@ -81,6 +81,6 @@ export default class App extends Component {
 
 const ViewRandomChar = () => {
     return (
-        <RandomChar />
+        <RandomChar interval={5000} />
     )
 }
