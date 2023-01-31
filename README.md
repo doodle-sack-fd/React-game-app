@@ -1,4 +1,9 @@
+![Гифка с Gifius ru (8)](https://user-images.githubusercontent.com/106888774/215724974-84c93f17-64ca-43c8-820f-8bf34c7e1358.gif)
+
+
+
 # Getting Started with Create React App
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
